@@ -7,3 +7,6 @@ JDK_INSTALL_PATH = '/opt/'
 
 # zabbix_server 地址
 ZABBIX_SERVER_IP = '192.168.6.199'
+
+# salt_master 地址
+SALT_MASTER_IP = '192.168.6.199'
