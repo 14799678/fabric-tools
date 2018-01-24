@@ -1,5 +1,7 @@
 # fabric-tools
 使用fabric提供一些日常的运维操作，会持续更新<br>
+如有常用功能需求，可以联系我 `QQ：247435333`<br>
+欢迎各位一起学习交流<br>
 
 * [fabric 学习文档推荐](http://fabric-chs.readthedocs.io/zh_CN/chs/tutorial.html "fabric 文档推荐") 
 
