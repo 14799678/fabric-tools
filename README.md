@@ -12,7 +12,7 @@ rpm -Uvh http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.no
 yum安装fabric
 yum install fabric -y
 ```
-`settings.py` 是配置文件<br>
+##### `settings.py` 是配置文件
 
 		# jdk安装的位置
 		JDK_INSTALL_PATH = '/opt/'
@@ -23,23 +23,20 @@ yum install fabric -y
 		# salt_master 地址
 		SALT_MASTER_IP = '192.168.6.199'
 
-`ip.conf` 是需要登录的服务器文件<br>
+##### `ip.conf` 是需要登录的服务器文件
 
 		ip地址        密码   主机名(如果需要修改主机名可以配置此列)
 		192.168.6.125 123456 test002
 
 		使用空格分开
 
-任务运行<br>
-```
-fab -f running.py host_init
--f 是指定那个是主文件
-```
-并发执行<br>
-```
-fab -f running.py -P sun
--P 是并发
-```
+##### 任务运行
+
+		fab -f running.py host_init
+		-f 是指定那个是主文件
+##### 并发执行
+		fab -f running.py -P sun
+		-P 是并发
 
 ---
 
