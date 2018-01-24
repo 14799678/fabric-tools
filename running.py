@@ -40,10 +40,6 @@ env.user = 'root'
 env.passwords = ip_dict
 
 
-@task
-def sun():
-    run("ifconfig")
-
 
 
 
