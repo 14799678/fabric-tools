@@ -44,7 +44,10 @@ env.user = 'root'
 env.passwords = ip_dict
 
 
-
+# 测试链接使用
+@task
+def test():
+    run("ifconfig")
 
 
 # 修改服务器hostname，并且把ip.conf列表内的ip与主机名对应关系写到 /etc/hosts。
@@ -162,8 +165,4 @@ def ssh_trust():
     run('echo "{data}" >> /root/.ssh/authorized_keys'.format(data=''.join(result.values())))
 
 
-
-@task
-def sun():
-    run("ifconfig")
 

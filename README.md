@@ -53,9 +53,13 @@ Available commands:
     jdk
     salt
     ssh_trust
+    test
     zabbix
 [root@localhost fabric-tools]# 
 ```
+
+### test
+用来测试主机是否可以正常连接时使用。
 
 ### host_init
 服务器的 `初始化` 初始化脚本在`script/init.sh`,有需要调整的项目可以更改次脚本。<br>
