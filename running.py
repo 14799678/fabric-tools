@@ -166,3 +166,48 @@ def ssh_trust():
 
 
 
+# cm server 地址
+this_machine_ip = "10.10.11.15"
+def cm():
+    result = run("if [ -d /opt/cm-5.13.1 ];then echo '/opt/cm-5.13.1 dir exists!';fi")
+    if result:
+        return 'error'
+
+    run("echo 'running..... put cloudera-manager-el6-cm5.13.1_x86_64.tar.gz'")
+    put("app/cloudera-manager-el6-cm5.13.1_x86_64.tar.gz","/opt/")
+    with cd('/opt'):
+        run("echo 'running..... tar cloudera-manager-el6-cm5.13.1_x86_64.tar.gz'")
+        result = run("tar -zxf cloudera-manager-el6-cm5.13.1_x86_64.tar.gz||echo 'tar cm fail!'")
+
+        if result:
+            return 'error'
+    run("sed -i 's/\(server_host=\).*/\\1{ip}/g' /opt/cm-5.13.1/etc/cloudera-scm-agent/config.ini".format(ip=this_machine_ip))
+
+    # cm server 部署
+    if this_machine_ip == env.host:
+        run("yum install mysql mysql-server -y")
+        result = run("/etc/init.d/mysqld restart >/dev/null|| echo 'mysql start fail!'")
+        local("mysql -uroot < script/init_mysql.sql")
+        local("mkdir -p /usr/share/java/")
+        local("source /etc/profile")
+        local("cp app/mysql-connector-java.jar /usr/share/java/")
+        local("bash /opt/cm-5.13.1/share/cmf/schema/scm_prepare_database.sh mysql cm cmur 123456")
+
+
+# cm 启动
+def cm_start():
+    with cd("/opt/cm-5.13.1/etc/init.d"):
+        if this_machine_ip == env.host:
+            run("./cloudera-scm-server restart")
+            run("./cloudera-scm-agent restart")
+            run('echo "/opt/cm-5.13.1/etc/init.d/cloudera-scm-server start">>/etc/rc.local')
+            run('echo "/opt/cm-5.13.1/etc/init.d/cloudera-scm-agent start">>/etc/rc.local')
+        else:
+            run("./cloudera-scm-agent restart")
+            run('echo "/opt/cm-5.13.1/etc/init.d/cloudera-scm-agent start">>/etc/rc.local')
+
+
+# 批量修改密码
+
+def set_pw():
+    run('echo "@7B[r9)]!-iY,)QA"|passwd --stdin root')
